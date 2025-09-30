@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export type ImageCardProps = {
   title: string;
   blurb: string;
@@ -7,22 +9,17 @@ export type ImageCardProps = {
   alt?: string;
 };
 
-export default function ImageCard({
-  title,
-  blurb,
-  src,
-  alt = title,
-}: ImageCardProps) {
+export default function ImageCard({ title }: ImageCardProps) {
   return (
     <div className="relative w-[80%] md:w-full max-w-sm mx-auto group cursor-pointer mt-20">
       {/* Background rectangle (smaller height and padding) */}
       <div className="bg-gray-300 rounded-2xl px-4 pt-12 pb-6 transition-colors duration-300 group-hover:bg-gray-600">
         {/* Image container (sticks out and bigger) */}
         <div className="relative -mt-28 z-10  md:w-full flex justify-center">
-          <img
+          <Image
             src="./hero.png"
             alt="Service"
-            className="w-[100%] md:w-[440px] max-w-none transition-transform duration-300 group-hover:transform group-hover:-translate-y-2 group-hover:translate-x-2"
+            className="w-[10%] md:w-[440px] max-w-none transition-transform duration-300 group-hover:transform group-hover:-translate-y-2 group-hover:translate-x-2"
           />
         </div>
 

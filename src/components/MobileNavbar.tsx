@@ -39,28 +39,8 @@ export default function MobileNavSimplifiedBlue() {
 
   // Prefetch routes once
   useEffect(() => {
-    // @ts-ignore: next/app exposes prefetch in App Router
     LINKS.forEach((l) => router.prefetch?.(toHref(l.href)));
   }, [router]);
-
-  // When navigation completes to the pending path, slide out the overlay
-  useEffect(() => {
-    if (!pendingPath) return;
-    if (pathname === pendingPath) {
-      if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      playOverlayOut();
-    }
-  }, [pathname, pendingPath]);
-
-  const armFallback = () => {
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => {
-      playOverlayOut();
-    }, 1600);
-  };
 
   const playOverlayIn = async (title: string) => {
     if (!overlayRef.current || !titleRef.current) return;
@@ -81,6 +61,24 @@ export default function MobileNavSimplifiedBlue() {
       );
       tl.eventCallback("onComplete", () => resolve());
     });
+  };
+  // When navigation completes to the pending path, slide out the overlay
+  useEffect(() => {
+    if (!pendingPath) return;
+    if (pathname === pendingPath) {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      playOverlayOut();
+    }
+  }, [pathname, pendingPath, playOverlayIn]);
+
+  const armFallback = () => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => {
+      playOverlayOut();
+    }, 1600);
   };
 
   const playOverlayOut = () => {

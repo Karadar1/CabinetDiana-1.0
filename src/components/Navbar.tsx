@@ -13,7 +13,6 @@ import { usePathname, useRouter } from "next/navigation";
  */
 
 const TABS = ["acasa", "servicii", "echipa", "contact"] as const;
-type TabKey = (typeof TABS)[number];
 
 function toHref(tab: string) {
   return tab.startsWith("/") ? tab : `/${tab}`;
@@ -40,32 +39,9 @@ export default function Navbar() {
 
   // Prefetch all tab routes once
   useEffect(() => {
-    // @ts-ignore App Router exposes prefetch
     TABS.forEach((t) => router.prefetch?.(toHref(t)));
   }, [router]);
 
-  // When the Next.js pathname updates to the pending path, play the overlay OUT
-  useEffect(() => {
-    if (!pendingPath) return;
-    if (pathname === pendingPath) {
-      // Clear fallback
-      if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      playOverlayOut();
-    }
-  }, [pathname, pendingPath]);
-
-  // Fallback in case route is unusually slow
-  const armFallback = () => {
-    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(() => {
-      playOverlayOut();
-    }, 1600); // a bit longer since slide-in is longer now
-  };
-
-  // Slide IN fully, then resolve (so we can push AFTER cover)
   const playOverlayIn = async (title: string) => {
     if (!overlayRef.current || !titleRef.current) return;
 
@@ -107,6 +83,28 @@ export default function Navbar() {
       document.documentElement.classList.remove("overflow-y-hidden");
     });
   };
+  // When the Next.js pathname updates to the pending path, play the overlay OUT
+  useEffect(() => {
+    if (!pendingPath) return;
+    if (pathname === pendingPath) {
+      // Clear fallback
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      playOverlayOut();
+    }
+  }, [pathname, pendingPath, playOverlayOut]);
+
+  // Fallback in case route is unusually slow
+  const armFallback = () => {
+    if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = window.setTimeout(() => {
+      playOverlayOut();
+    }, 1600); // a bit longer since slide-in is longer now
+  };
+
+  // Slide IN fully, then resolve (so we can push AFTER cover)
 
   const doPageTransition = async (tab: string) => {
     if (isAnimating) return;

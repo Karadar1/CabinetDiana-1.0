@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 
 import Button from "@/components/Button";
+import Image from "next/image";
 
 const MedicalClinicHero: React.FC = () => {
   return (
@@ -55,7 +56,7 @@ const MedicalClinicHero: React.FC = () => {
 
         {/* Right Side - Image */}
         <div className="relative hidden overflow-hidden md:block">
-          <img
+          <Image
             src="./hero.png"
             alt="Consultație într-un mediu calm"
             className="h-full w-full max-h-[860px] object-cover"

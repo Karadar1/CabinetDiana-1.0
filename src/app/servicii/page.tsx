@@ -3,7 +3,6 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
 import { FiArrowRight, FiCheck } from "react-icons/fi";
 import Link from "next/link";
 
@@ -192,7 +191,7 @@ export default function ServicesPage() {
         ref={gridRef}
         className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 pb-16 sm:px-8 md:grid-cols-2"
       >
-        {services.map((s, i) => (
+        {services.map((s) => (
           <article
             id={s.id}
             key={s.id}
