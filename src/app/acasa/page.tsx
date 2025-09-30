@@ -57,9 +57,12 @@ const MedicalClinicHero: React.FC = () => {
         {/* Right Side - Image */}
         <div className="relative hidden overflow-hidden md:block">
           <Image
-            src="./hero.png"
+            src="/hero.png" // in /public
             alt="Consultație într-un mediu calm"
-            className="h-full w-full max-h-[860px] object-cover"
+            fill // make it cover the container
+            priority // above-the-fold -> preloads
+            sizes="(min-width: 1024px) 50vw, 100vw" // 50% grid on lg, full width on md
+            className="object-cover"
           />
         </div>
       </div>

@@ -17,9 +17,13 @@ export default function ImageCard({ title }: ImageCardProps) {
         {/* Image container (sticks out and bigger) */}
         <div className="relative -mt-28 z-10  md:w-full flex justify-center">
           <Image
-            src="./hero.png"
-            alt="Service"
-            className="w-[10%] md:w-[440px] max-w-none transition-transform duration-300 group-hover:transform group-hover:-translate-y-2 group-hover:translate-x-2"
+            src="/hero.png" // ensure leading slash
+            alt="Picture with Diana Jivanescu"
+            width={440}
+            height={300}
+            priority={false}
+            sizes="(max-width: 640px) 82vw, (max-width: 768px) 90vw, 440px"
+            className="max-w-none h-auto w-[82%] sm:w-[90%] md:w-[440px] transition-transform duration-300 group-hover:-translate-y-2 group-hover:translate-x-2"
           />
         </div>
 
